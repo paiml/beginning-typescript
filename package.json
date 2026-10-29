@@ -1,0 +1,16 @@
+{
+  "name": "ts7-first-programs-examples",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Examples for Your First TypeScript 7 Programs",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "test": "node --test 'test/*.test.ts'"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

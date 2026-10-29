@@ -1,0 +1,10 @@
+node_modules/
+# The project you create by following along, and what the commands write.
+hello/
+dist/
+erasure/*.js
+erasure/es2015/
+new-config/tsconfig.json
+project/src/*.js
+# Temporary copies the check programs make, and remove, while they run.
+.check-*/
