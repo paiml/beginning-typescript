@@ -1,6 +1,6 @@
 # A typed unit converter
 
-Converts a value from one unit to another: kilometres and miles,
+Converts a value from one unit to another: kilometers and miles,
 Celsius and Fahrenheit, kilograms and pounds.
 
 - src/units.ts    the units it knows, as a type

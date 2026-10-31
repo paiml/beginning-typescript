@@ -1,0 +1,6 @@
+# Read by codespell, locally and in .github/workflows/gate.yml.
+[codespell]
+skip = ./.git,./node_modules,./package-lock.json
+# The default dictionaries, plus British spellings to American: these docs use
+# American English.
+builtin = clear,rare,en-GB_to_en-US
