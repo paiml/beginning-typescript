@@ -1,0 +1,44 @@
+name: gate
+
+# Satisfies the org-wide "Green Main — unified gate enforcement" ruleset, which
+# requires a status check literally named "gate" on every PR into main.
+#
+# No `paths:` filter on purpose: a required check has to report on every PR,
+# or PRs that touch nothing it watches would wait for it forever.
+#
+# `spelling` runs codespell over the whole repository: the READMEs, the brief
+# and the comments in every example. Its settings, including words misspelled
+# on purpose for a lesson, live in .codespellrc, so `uvx codespell` locally
+# reports exactly what this job does. `gate` only rolls up `needs`, so adding
+# a required job later is one more entry there.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  spelling:
+    name: spelling
+    runs-on: [self-hosted, clean-room]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v3
+
+      - name: Check spelling
+        run: uvx codespell==2.4.3
+
+  gate:
+    name: gate
+    runs-on: [self-hosted, clean-room]
+    if: always()
+    needs: [spelling]
+    steps:
+      - name: Check all jobs
+        run: |
+          if echo '${{ toJson(needs) }}' | jq -e 'to_entries | map(select(.value.result != "success" and .value.result != "skipped")) | length > 0' > /dev/null 2>&1; then
+            echo "One or more jobs failed"
+            exit 1
+          fi
